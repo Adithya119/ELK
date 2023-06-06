@@ -1,0 +1,10 @@
+Grok pattern for filtering apache web logs
+%{COMBINEDAPACHELOG}
+---
+
+Grok pattern for filtering mysql db logs:-
+(?<month>\d\d)(?<day>\d\d)(?<year>\d\d)%{SPACE}%{TIME}%{SPACE}(?<error>\[\b\w+\]\s+)%{GREEDYDATA:errormessage} 
+
+The above is MM/DD/YYYY TIME <error message>
+---
+
