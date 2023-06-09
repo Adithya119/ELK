@@ -1,0 +1,35 @@
+** Grok pattern for filtering apache web logs
+%{COMBINEDAPACHELOG}
+
+ex:- 
+    grok
+    {
+        match => { "message" => "%{COMBINEDAPACHELOG}"}
+    }
+
+match:-
+Value type is hash
+Default value is {}
+A hash that defines the mapping of where to look, and with which patterns.
+
+For example, the following will match an existing value in the message field for the given pattern, and if a match is found,,
+will add the field duration to the event with the captured value:
+
+    filter {
+      grok {
+        match => {
+          "message" => "Duration: %{NUMBER:duration}"
+        }
+      }
+    }
+---
+
+** Grok pattern for filtering mysql db logs:-
+(?<month>\d\d)(?<day>\d\d)(?<year>\d\d)%{SPACE}%{TIME}%{SPACE}(?<error>\[\b\w+\]\s+)%{GREEDYDATA:errormessage} 
+
+The above is MM/DD/YYYY TIME <error message>
+---
+
+
+----------
+Logstash ships about 120 patterns by default https://github.com/hpcugent/logstash-patterns/blob/master/files/grok-patterns
