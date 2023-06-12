@@ -1,0 +1,43 @@
+Settings inside /etc/elasticsearch/elasticsearch.yml :-
+----------------------------------------------------
+
+cluster.name:-
+---
+A node can only join a cluster when it shares its cluster.name with all the other nodes in the cluster. You can join new nodes to the cluster using token (just like in k8s).
+
+Path settings:-
+---
+Elasticsearch writes the data you index to indices and data streams to a data directory. Elasticsearch writes its own application logs, which contain information about cluster health and operations, to a logs directory.
+
+For macOS .tar.gz, Linux .tar.gz, and Windows .zip installations, data and logs are subdirectories of $ES_HOME by default. However, files in $ES_HOME risk deletion during an upgrade.
+
+path:
+  data: /var/data/elasticsearch
+  logs: /var/log/elasticsearch
+
+
+node.name:-
+---
+Elasticsearch uses node.name as a human-readable identifier for a particular instance of Elasticsearch.
+
+network.host:-
+---
+By default, Elasticsearch only binds to loopback addresses such as 127.0.0.1 and [::1]. This is sufficient to run a cluster of one or more nodes on a single server for development and testing, but a resilient production cluster must involve nodes on other servers. There are many network settings but usually all you need to configure is network.host:
+
+network.host: 192.168.1.10
+When you provide a value for network.host, Elasticsearch assumes that you are moving from development mode to production mode, and upgrades a number of system startup checks from warnings to exceptions. See the differences between development and production modes.
+
+discovery.seed_hosts:-
+---
+Discovery and cluster formation settings
+Configure two important discovery and cluster formation settings before going to production so that nodes in the cluster can discover each other and elect a master node.
+
+discovery.seed_hosts
+Out of the box, without any network configuration, Elasticsearch will bind to the available loopback addresses and scan local ports 9300 to 9305 to connect with other nodes running on the same server. This behavior provides an auto-clustering experience without having to do any configuration.
+
+When you want to form a cluster with nodes on other hosts, use the static discovery.seed_hosts setting. 
+
+*** This setting provides a list of other nodes in the cluster that are master-eligible and likely to be live and contactable to seed the discovery process. This setting accepts a YAML sequence or array of the addresses of all the master-eligible nodes in the cluster. Each address can be either an IP address or a hostname that resolves to one or more IP addresses via DNS.
+
+
+* see bookmark for other info.
