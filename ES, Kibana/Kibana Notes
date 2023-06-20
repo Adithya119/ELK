@@ -1,0 +1,3 @@
+Kibana loads its configuration from the /etc/kibana/kibana.yml file by default
+
+Settings inside /etc/elasticsearch/elasticsearch.yml :-
