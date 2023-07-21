@@ -1,0 +1,29 @@
+
+Refer apache-beats.conf under Logstash folder:-
+index => "apache-%{+yyyy.MM.dd}" ------> In Kibana, create this index pattern (apache-*) to pull apache logs from ES. Likewise, you can create several index patterns in Kibana to match the index name in ES & pull those logs.
+
+Refer ss-1:-
+There are 100 fields (ex: hostname, tags (which are given in filebeat.yml), host.os., response.keyword etc,.) available in the apache-* index pattern. You can search logs in that index by referencing any of those 100 fields.
+
+Refer ss-2:-
+There are 20 hits => In /etc/filebeat/filebeat.yml (filebeat config file), we have set the path (path to look for logs) as "/var/log/apache2/access.log" & this path has captured 20 logs => these are parsed along to Kibana which we are seeing as 20 hits. 
+This path above is the path inside the web server(s) where filebeat is also installed.
+
+Note:-
+1) ES has indexes.
+2) Each index stores logs as JSON docs. Thats why in Kibana, you'll see every log in JSON format. 
+
+
+Trainer has run runapache.sh (test script) & has got about 178 hits:-
+1) In Kibana you can see 178 hits, out of which 95 are 200 OK code & 83 are 404 error code. 
+2) 200 OK logs are captured from "/var/log/apache2/access.log" & 404 error logs are captured from "/var/log/apache2/error.log". 
+These 2 paths should be mentioned in path (path to look for logs) field inside filebeat.yml.
+3) Refer ss-3:- 
+To filter 404 logs in Kibana, type response.keyword : 404 in search bar to fetch the 110 404 error logs. This is KQL.
+
+
+Go to Dashboard > click on "Create Visualization":-
+Refer ss-4:-
+1) click on response.keyword field on the left & it will display a "bar vertical stacked" chart by default. refer ss-5
+2) You can change the default setting to "pie" chart as shown in ss-6
+3) after selecting pie chart, your visualization will change to something like in ss-7. This is more clear with % of 200 logs & 404 logs
