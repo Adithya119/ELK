@@ -5,6 +5,10 @@ index => "apache-%{+yyyy.MM.dd}" ------> In Kibana, create this index pattern (a
 Refer ss-1:-
 There are 100 fields (ex: hostname, tags (which are given in filebeat.yml), host.os., response.keyword etc,.) available in the apache-* index pattern. You can search logs in that index by referencing any of those 100 fields.
 
+Note:-
+/etc/filebeat/filebeat.yml
+/etc/filebeat/filebeat.reference.yml
+
 Refer ss-2:-
 There are 20 hits => In /etc/filebeat/filebeat.yml (filebeat config file), we have set the path (path to look for logs) as "/var/log/apache2/access.log" & this path has captured 20 logs => these are parsed along to Kibana which we are seeing as 20 hits. 
 This path above is the path inside the web server(s) where filebeat is also installed.
@@ -37,3 +41,61 @@ You can pull other server type (ex:- mysql) logs by changing the grok filter fie
 Filter the mysql server logs in Kibana using host.os.family field.
 
 These minimal visualizations will be enough for your org.
+
+----------------------------------------------------------
+
+
+Metric beats:-
+
+Apart from application related issues, your app might be down due to infra reasons as well (disk space, resource congestion, network congestion, etc.). TO detect such causes, we need to keep an eye on infra metrics which can be handled by metric beats software => metric beats pull system information.
+
+/etc/metricbeat/metricbeat.yml
+/etc/metricbeat/metricbeat.reference.yml
+
+With metricbeats, trainer configured it to send logs directly to ES, skipping Logstash.
+
+Refer ss-10:-
+It's a screenshot of "metricbeat.reference.yml" --> you can copy paste the system metric from here to "metricbeat.yml" & uncomment the metric whichever you want to pull and monitor.
+
+Inside the metricbeats config file, you can set the setup kibana dashboards to "true" for automatically setting up dashboards which will list all the server metrics in Kibana. Restart the metricbeats service after you make this change. 
+
+Also inside the metricbeats config file, you need to add "apache module" (whichever module you need), under the modules section for metricbeats to know with which server it's going to deal with.
+
+All of this looks like vRops.
+
+
+---
+
+Note:-
+
+1) Logging in using sftp is just like ssh (same protocol) => "sftp -i <key>.pem ubuntu@ip"
+   To upload a file from local machine to a vm, connect via sftp (powershell), then run this command -> "put <filename.yml>" (it will upload to your home directory)
+
+2) Simple bash script to do something in a loop:-
+   
+   while true
+   do
+     curl http://54.191.223.145
+     curl http://54.191.223.145/test.hml
+     sleep 10s
+   done
+
+
+------------------------------------------------
+
+
+Oct-3rd:-
+Refer ss-11 --> Trainer pulled some sample data to Kibana directly from web.
+Refer ss-12 --> web traffic dashboard showing various analytics.
+
+Rules and Alerts:-
+You can create Rules & Alerts under Security Tab:
+Refer ss-13 --> creating a custom Rule. Save that query (name it) & hit Continue
+ss-14 --> step-2
+ss-15 --> scroll down to step-3
+ss-16 --> scroll down to step-4
+
+
+Note:-
+503 (500) --> server internal error (act on it)
+404 (400) --> client error => ask client to check from their end (ex:- incorrect url's used)
