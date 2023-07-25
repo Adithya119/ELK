@@ -40,4 +40,7 @@ When you want to form a cluster with nodes on other hosts, use the static discov
 *** This setting provides a list of other nodes in the cluster that are master-eligible and likely to be live and contactable to seed the discovery process. This setting accepts a YAML sequence or array of the addresses of all the master-eligible nodes in the cluster. Each address can be either an IP address or a hostname that resolves to one or more IP addresses via DNS.
 
 
+cluster.initial_master_nodes:
+Bootstrap the cluster using an initial set of master-eligible nodes
+
 * see bookmark for other info.

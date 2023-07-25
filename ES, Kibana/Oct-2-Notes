@@ -26,14 +26,16 @@ These 2 paths should be mentioned in path (path to look for logs) field inside f
 To filter 404 logs in Kibana, type response.keyword : 404 in search bar to fetch the 110 404 error logs. This is KQL.
 
 
-Go to Dashboard > click on "Create Visualization":-
+Go to Dashboard > click on "Create Visualization":- 
+
+(Visualizations can be created using just 1 field. Examples below):-
 
 1) Refer ss-4: click on response.keyword field on the left & it will display a "bar vertical stacked" chart by default. refer ss-5
 2) You can change the default setting to "pie" chart as shown in ss-6
 3) after selecting pie chart, your visualization will change to something like in ss-7. This is more clear with % of 200 logs & 404 logs
 4) Refer ss-8: you can name this visualization (HttpResponses) using the Save button on top right corner. You can also press the button "Refresh" to refresh the no. of incoming hits.
-5) Refer ss-9: select another field "clientip.keyword" & select Donut as visualization type. Those many remote machines have access the web server(s). You can save this as your 2nd visualization & name it as "most frequent clients"
-6) Heatmap is another "type" of visualization, just like bar & pie chart. By heatmap, you'll know from which regions you are getting 200 or 404 hits during a boxing match on Fox / NBC etc & act quickly if you see 404 error from that particular region.
+5) Refer ss-9: select another field "clientip.keyword" & select Donut as visualization type. Those many remote machines have accessed the web server(s). You can save this as your 2nd visualization & name it as "most frequent clients"
+6) Heatmap is another "type" of visualization, just like bar & pie chart. Select "response.keyword" as your desired field & by heatmap, you'll know from which regions you are getting 200 or 404 hits or any other code hits during a boxing match on Fox / NBC etc & act quickly if you see 404 error from that particular region.
 
 
 Note:-
@@ -84,7 +86,8 @@ Note:-
 ------------------------------------------------
 
 
-Oct-3rd:-
+Oct-3rd:- * * *
+
 Refer ss-11 --> Trainer pulled some sample data to Kibana directly from web.
 Refer ss-12 --> web traffic dashboard showing various analytics.
 
